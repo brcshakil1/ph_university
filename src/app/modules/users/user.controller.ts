@@ -1,28 +1,39 @@
-export interface User {
-  id: string
-  password: string
-  needsPasswordChange: boolean
-  role: 'admin' | 'student' | 'faculty'
-}
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { NextFunction, Request, Response } from 'express';
+import { UserServices } from './user.service';
+import sendResponse from '../../utils/sendResponse';
+import httpStatus from 'http-status';
 
-export interface TStudent {
-  _id: string
-  id: string // generated
-  user: User
-  name: string
-  gender: string
-  dateOfBirth: Date
-  email: string
-  contactNo: string
-  emergencyContactNo: string
-  presentAddress: string
-  permanentAddress: string
-  guardian: string
-  localGuardian: string
-  profileImage: string
-  status: string
-  academicDepartment: string
-  isDeleted: boolean
-  createdAt: Date
-  updatedAt: Date
-}
+const createStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { password, student: studentData } = req.body;
+
+    // will call service func to send the data
+    const result = await UserServices.createStudentIntoDB(
+      password,
+      studentData,
+    );
+
+    // res.status(200).json({
+    //   success: true,
+    //   message: 'Student create successfully!',
+    //   data: result,
+    // });
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Student created successfully',
+      data: result,
+    });
+  } catch (err: any) {
+    next(err);
+  }
+};
+
+export const UserControllers = {
+  createStudent,
+};

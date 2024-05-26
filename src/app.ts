@@ -1,6 +1,11 @@
-import express, { Application, Request, Response } from 'express';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import { StudentRoutes } from './app/modules/students/student.route';
+import { UserRoutes } from './app/modules/users/user.route';
+import globalErrorHandler from './app/middlwares/globalErrorHandlers';
+import notFound from './app/middlwares/notFound';
 
 const app: Application = express();
 
@@ -10,6 +15,7 @@ app.use(cors());
 
 // application routes
 app.use('/api/v1/students', StudentRoutes);
+app.use('/api/v1/users', UserRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.send("PH University's server is running!");
@@ -22,5 +28,11 @@ app.all('*', (req: Request, res: Response) => {
     message: 'Route not found',
   });
 });
+
+// global error handler
+app.use(globalErrorHandler);
+
+// not found
+app.use(notFound);
 
 export default app;
