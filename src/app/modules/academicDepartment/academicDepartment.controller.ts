@@ -53,7 +53,7 @@ const updateSingleAcademicDepartment = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Academic department retrieved successfully.',
+    message: 'Academic department updated successfully.',
     data: result,
   });
 });
