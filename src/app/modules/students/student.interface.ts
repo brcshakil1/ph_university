@@ -28,7 +28,7 @@ export interface TStudent {
   password: string;
   name: TUserName;
   gender: 'male' | 'female' | 'other';
-  dateOfBirth?: Date;
+  dateOfBirth?: string;
   email: string;
   contactNumber: string;
   emergencyContactNo: string;
@@ -38,6 +38,7 @@ export interface TStudent {
   guardian: TGuardian;
   localGuardian: TLocalGuardian;
   profileImage?: string;
+  admissionSemester: Types.ObjectId;
   isDeleted: boolean;
 }
 

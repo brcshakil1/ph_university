@@ -83,7 +83,7 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       },
       required: true,
     }, // enum type
-    dateOfBirth: { type: Date },
+    dateOfBirth: { type: String },
     email: {
       type: String,
       required: [true, 'Email is required. Please, provide an email.'],
@@ -122,7 +122,7 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       required: true,
     },
     profileImage: { type: String },
-
+    admissionSemester: { type: Schema.Types.ObjectId, ref: 'AcademicSemester' },
     isDeleted: { type: Boolean, default: false },
   },
   {
