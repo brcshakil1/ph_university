@@ -21,6 +21,12 @@ app.get('/', (req: Request, res: Response) => {
   res.send("PH University's server is running!");
 });
 
+// global error handler
+app.use(globalErrorHandler);
+
+// not found
+app.use(notFound);
+
 // global routes handling
 app.all('*', (req: Request, res: Response) => {
   res.status(404).json({
@@ -28,11 +34,5 @@ app.all('*', (req: Request, res: Response) => {
     message: 'Route not found',
   });
 });
-
-// global error handler
-app.use(globalErrorHandler);
-
-// not found
-app.use(notFound);
 
 export default app;
